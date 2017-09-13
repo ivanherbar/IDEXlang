@@ -1,0 +1,24 @@
+﻿<Window x:Class="IDEXlan.AcercaDe"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      Height="300"
+      Width="500"
+      ResizeMode="NoResize"
+      Title="AcercaDe">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" Source="Images/ide.png" Height="100"/>
+        <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Label Content="IDE Xlang" FontWeight="Bold" FontSize="20"/>
+            <Label Content="Desarrollado por el equipo Developers"/>
+            <Label Content="Lenguajes y automatas II"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,157 @@
+﻿<Window x:Class="IDEXlan.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IDEXlan"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        mc:Ignorable="d"
+        Title="X Lang IDE" Height="600" Width="800"
+        Icon="Images/ide.png">
+    <Grid Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="19"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" HorizontalAlignment="Left" Height="20" Background="White" VerticalAlignment="Top" Width="{Binding ElementName=mainGrid, Path=ActualWidth}">
+            <MenuItem Header="Archivo">
+                <MenuItem Header="Abrir archivo" x:Name="menuArchivoAbrir"/>
+                <MenuItem Header="Guardar archivo" x:Name="menuArchivoGuardar"/>
+                <MenuItem Header="Cerrar" x:Name="menuArchivoCerrar"/>
+            </MenuItem>
+            <MenuItem Header="Ayuda">
+                <MenuItem Header="Acerca de.." x:Name="menuAcerca"/>
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Name="editoGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="89*"/>
+                    <ColumnDefinition Width="43*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ToolBar Margin="0,0,15,0" Height="30" Background="White" Grid.ColumnSpan="2">
+                    <Button x:Name="toolNuevo">
+                        <Image Source="Images/add-page.png" Height="15" Width="15"/>
+                    </Button>
+                    <Button x:Name="toolGuardar">
+                        <Image Source="Images/floppy-disk.png" Height="15" Width="15"/>
+                    </Button>
+                    <Separator/>
+                    <Button x:Name="toolTokens">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/play-button.png" Height="15" Width="15"/>
+                            <TextBlock Text="  Obtener tokens"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="toolsTabla">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/play-button.png" Height="15" Width="15"/>
+                            <TextBlock Text=" Tabla simbolos"/>
+                        </StackPanel>
+                    </Button>
+                </ToolBar>
+                <avalonEdit:TextEditor ShowLineNumbers="True" Grid.Row="1" x:Name="textEditor" FontFamily="Consolas" FontSize="12px" Margin="-2,0,2,0" Grid.ColumnSpan="2"/>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Grid x:Name="gridSalidas">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Salida: "/>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBox IsEnabled="False" Foreground="Black" Grid.Row="0" x:Name="lbl_salida" />
+                        <DataGrid x:Name="tablaSimbolos" HorizontalAlignment="Center"
+                                  AutoGenerateColumns="False"
+                                  Grid.Row="1"
+                                  Width="{Binding ElementName=gridSalidas, Path=ActualWidth}"
+                                  CanUserAddRows="False"
+                                  SelectionMode="Single"
+                                  CanUserDeleteRows="False"
+                                  CanUserResizeRows="False"
+                                  CanUserSortColumns="False"
+                                  HeadersVisibility="Column"
+                                  GridLinesVisibility="None" SelectionUnit="FullRow">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Width="1*">
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock  Text="Simbolo" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock x:Name="txtSimbolo" Text="{Binding Simbolo}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate >
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Simbolo, UpdateSourceTrigger=LostFocus}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="1*">
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock  Text="Definición" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock x:Name="txtDefinicion" Text="{Binding Definicion}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate >
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Definicion, UpdateSourceTrigger=LostFocus}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="1*">
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock  Text="Comentario" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock x:Name="txtComentatario" Text="{Binding Comenatio}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate >
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Comentario, UpdateSourceTrigger=LostFocus}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+        </Grid>
+        <Grid Grid.Row="2" Background="BlueViolet">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" x:Name="lblLineas" Background="Transparent" BorderBrush="Transparent"  FontStyle="Oblique" Foreground="White" FontSize="12" Content="Numero de lineas: "/>
+        </Grid>
+    </Grid>
+</Window>
