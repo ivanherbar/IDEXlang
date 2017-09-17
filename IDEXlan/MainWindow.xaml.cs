@@ -51,12 +51,22 @@ namespace IDEXlan
             List<TablaSimbolos> simbolos = new List<TablaSimbolos>();
             toolsTabla.Click += (sender, args) =>
             {
-                simbolos.Add(new TablaSimbolos() { Simbolo = tokens[0], Definicion = reg.ConvertirToken(tokens[0]), Comentario = "" });
+                simbolos.Clear();
+                foreach (var item in tokens)
+                {
+                    simbolos.Add(new TablaSimbolos
+                    {
+                        Simbolo = item,
+                        Definicion = reg.ConvertirToken(item),
+                        Comentario = ""
+                    });
+                }
+                tablaSimbolos.ItemsSource = null;
                 tablaSimbolos.ItemsSource = simbolos;
             };
             menuAcerca.Click += delegate
             {
-                new AcercaDe().Show();
+                new AcercaDe() { Owner= this }.Show();
             };
             toolNuevo.Click += (sender, args) =>
             {
@@ -77,6 +87,7 @@ namespace IDEXlan
                     }
                 }
             };
+            menuArchivoCerrar.Click += (sender, args) => { this.Close(); };
 
         }
 
