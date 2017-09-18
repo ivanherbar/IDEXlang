@@ -16,11 +16,11 @@ namespace IDEXlan.Expresiones
         public const string OpUni = "[\u002B]{2}$|[--]{2}$";
         public const string esp = "[\u0020]";
         public const string CarEsp = "[\u005d|\u0040|\u0028|\u0029|{|}|#|\u003f|\u005b]";
-        public const string OpMat = "[\u002b]|-|[\u002a]|%|/|#";
+        public const string OpMat = "[-|\u002b|\u002a|%|/]";
         public const string Num = digito + "+";
         public const string palRes = "si|mientras|para|leer|imp|log";
         public const string TipDat = "ent|cad|dec";
-        public const string dec = digito + "*" + "." + Num;
+        public const string dec = digito + "*[.]" + Num;
         public const string cad = "^\"$[" + digito + "|" + letra + "|" + OpLog + "|" + CarEsp + "|" + esp + "]*^\"$";
         public const string vari = "^(" + letra + "|_)[" + letra + "|" + digito + "|_]*$";
         public const string operacion = "(" + Num + "|" + dec + ")" + OpMat + "(" + Num + "|" + dec + "|" + ")";
@@ -55,19 +55,26 @@ namespace IDEXlan.Expresiones
                 return "asignacion numero";
             }
 
-
-
             if (dat.IsMatch(token))
             {
                 return "tipo de dato";
             }
-            
-                       
+
+            if (uni.IsMatch(token))
+            {
+                return "operador unitario";
+            }
 
             if (opera.IsMatch(token))
             {
                 return "operacion matematica";
             }
+
+            if (pru.IsMatch(token))
+            {
+                return "operador matematico";
+            }
+
             if (decim.IsMatch(token))
             {
                 return "numero decimal";
@@ -77,25 +84,20 @@ namespace IDEXlan.Expresiones
             {
                 return "numero";
             }
+
             if (rel.IsMatch(token))
             {
                 return "operador relacional";
             }
-            if (uni.IsMatch(token))
-            {
-                return "operador unitario";
-            }
+
             if (log.IsMatch(token))
             {
                 return "operador logico";
             }
+
             if (car.IsMatch(token))
             {
                 return "caracter especial";
-            }            
-            if (pru.IsMatch(token))
-            {
-                return "operador matematico";
             }
 
             if (varib.IsMatch(token))
@@ -107,10 +109,8 @@ namespace IDEXlan.Expresiones
             {
                 return "cadena";
             }
-
-
-
             return "no";
         }
     }
 }
+

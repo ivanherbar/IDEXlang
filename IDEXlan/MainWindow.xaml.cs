@@ -13,7 +13,7 @@ namespace IDEXlan
     public partial class MainWindow : Window
     {
         string rutaArchivoActual;
-        string[] tokens;
+        string[] tokens = new string[0];
 
         public MainWindow()
         {
@@ -52,17 +52,24 @@ namespace IDEXlan
             toolsTabla.Click += (sender, args) =>
             {
                 simbolos.Clear();
-                foreach (var item in tokens)
+                if (tokens.Length > 0 || tokens.Equals(null)) 
                 {
-                    simbolos.Add(new TablaSimbolos
+                    foreach (var item in tokens)
                     {
-                        Simbolo = item,
-                        Definicion = reg.ConvertirToken(item),
-                        Comentario = ""
-                    });
+                        simbolos.Add(new TablaSimbolos
+                        {
+                            Simbolo = item,
+                            Definicion = reg.ConvertirToken(item),
+                            Comentario = ""
+                        });
+                    }
+                    tablaSimbolos.ItemsSource = null;
+                    tablaSimbolos.ItemsSource = simbolos;
                 }
-                tablaSimbolos.ItemsSource = null;
-                tablaSimbolos.ItemsSource = simbolos;
+                else
+                {
+                    MessageBox.Show("Antes de generar la tabla de tokens genera los tokens", "Error, no se han generado tokens", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             };
             menuAcerca.Click += delegate
             {
@@ -94,11 +101,32 @@ namespace IDEXlan
         private void Tookens(object sender, RoutedEventArgs e)
         {
             lbl_salida.Text = "";
+            List<string> tokensLista = new List<string>();
             if (textEditor.Text != string.Empty)
             {
                 tokens = textEditor.Text.Split(' ');
                 foreach (var item in tokens)
+                {
+                    if (item.Contains("\n"))
+                    {
+                        string[] temp = item.Split('\n');
+                        foreach (var tempItem in temp)
+                        {
+                            if (tempItem.Contains("\r"))
+                               tokensLista.Add(tempItem.Substring(0, tempItem.Length - 1));
+                            else
+                                tokensLista.Add(tempItem);
+                        }
+                    }
+                    else
+                    {
+                        tokensLista.Add(item);
+                    }
+                }
+                tokens = tokensLista.ToArray();
+                foreach (var item in tokens)
                     lbl_salida.AppendText(item + "\n");
+                    
             }
             else
             {

@@ -89,7 +89,7 @@
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <TextBox IsEnabled="False" Foreground="Black" Grid.Row="0" x:Name="lbl_salida" />
+                        <TextBox IsReadOnly="True" Foreground="Black" Grid.Row="0" x:Name="lbl_salida" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
 
                         <!--DataGrid de tabla de tokens-->
                         <DataGrid x:Name="tablaSimbolos" HorizontalAlignment="Center"
