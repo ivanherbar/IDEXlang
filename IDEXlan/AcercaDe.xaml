@@ -20,6 +20,10 @@
             <Label Content="IDE Xlang" FontWeight="Bold" FontSize="20"/>
             <Label Content="Desarrollado por el equipo Developers"/>
             <Label Content="Lenguajes y automatas II"/>
+            <Label Content="Bravo Mendez Uri Jonathan" FontSize="10" Margin="0,10, 0, 0"/>
+            <Label Content="Castillo Castillejos Alejandro" FontSize="10"/>
+            <Label Content="Hernandez Barrientos Oscar Ivan" FontSize="10"/>
+            <Label Content="Velazquez Martinez Omar" FontSize="10"/>
         </StackPanel>
     </Grid>
 </Window>

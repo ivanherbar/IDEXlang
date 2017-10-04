@@ -109,7 +109,7 @@ namespace IDEXlan.Expresiones
             {
                 return "cadena";
             }
-            return "no";
+            return "No asginado";
         }
     }
 }

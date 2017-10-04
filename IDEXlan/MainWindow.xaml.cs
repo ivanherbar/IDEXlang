@@ -40,7 +40,7 @@ namespace IDEXlan
                     
             };
 
-            ExpresionesReg reg = new ExpresionesReg();
+            
 
             menuArchivoGuardar.Click += GuardarArchivo;
             toolGuardar.Click += GuardarArchivo;
@@ -48,28 +48,13 @@ namespace IDEXlan
             textEditor.TextChanged += (sender, args) => { lblLineas.Content = $"Numero de lineas: {textEditor.LineCount}"; };
             toolTokens.Click += Tookens;
 
-            List<TablaSimbolos> simbolos = new List<TablaSimbolos>();
-            toolsTabla.Click += (sender, args) =>
+            
+            toolsSyntactic.Click += (sender, args) =>
             {
-                simbolos.Clear();
-                if (tokens.Length > 0 || tokens.Equals(null)) 
-                {
-                    foreach (var item in tokens)
-                    {
-                        simbolos.Add(new TablaSimbolos
-                        {
-                            Simbolo = item,
-                            Definicion = reg.ConvertirToken(item),
-                            Comentario = ""
-                        });
-                    }
-                    tablaSimbolos.ItemsSource = null;
-                    tablaSimbolos.ItemsSource = simbolos;
-                }
-                else
-                {
-                    MessageBox.Show("Antes de generar la tabla de tokens genera los tokens", "Error, no se han generado tokens", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+                SyntacticAnalizer analizer = new SyntacticAnalizer(textEditor.Text);
+                tablaError.Visibility = Visibility.Visible;
+                tablaError.ItemsSource = analizer.Analize();
+
             };
             menuAcerca.Click += delegate
             {
@@ -131,6 +116,28 @@ namespace IDEXlan
             else
             {
                 MessageBox.Show("No hay datos en el archivo, abre uno o crealo", "Importante");
+            }
+
+            ExpresionesReg reg = new ExpresionesReg();
+            List<TablaSimbolos> simbolos = new List<TablaSimbolos>();
+            simbolos.Clear();
+            if (tokens.Length > 0 || tokens.Equals(null))
+            {
+                foreach (var item in tokens)
+                {
+                    simbolos.Add(new TablaSimbolos
+                    {
+                        Simbolo = item,
+                        Definicion = reg.ConvertirToken(item),
+                        Comentario = ""
+                    });
+                }
+                tablaSimbolos.ItemsSource = null;
+                tablaSimbolos.ItemsSource = simbolos;
+            }
+            else
+            {
+                MessageBox.Show("Antes de generar la tabla de tokens genera los tokens", "Error, no se han generado tokens", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

@@ -74,6 +74,8 @@
     <Compile Include="AcercaDe.xaml.cs">
       <DependentUpon>AcercaDe.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ErrorTableModel.cs" />
+    <Compile Include="SyntacticAnalizer.cs" />
     <Compile Include="TablaSimbolos.cs" />
     <Page Include="AcercaDe.xaml">
       <SubType>Designer</SubType>

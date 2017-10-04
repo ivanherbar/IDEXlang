@@ -41,11 +41,11 @@
             <Grid Name="editoGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="89*"/>
-                    <ColumnDefinition Width="43*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 
                 <!--Toolbar-->
@@ -60,19 +60,68 @@
                     <Button x:Name="toolTokens">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Images/play-button.png" Height="15" Width="15"/>
-                            <TextBlock Text="  Obtener tokens"/>
+                            <TextBlock Text="  Lexico"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="toolsTabla">
+                    <Button x:Name="toolsSyntactic">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Images/play-button.png" Height="15" Width="15"/>
-                            <TextBlock Text=" Tabla simbolos"/>
+                            <TextBlock Text=" Analisis Sintactico"/>
                         </StackPanel>
                     </Button>
                 </ToolBar>
                 <!--termina Toolbar-->
                 
                 <avalonEdit:TextEditor ShowLineNumbers="True" Grid.Row="1" x:Name="textEditor" FontFamily="Consolas" FontSize="12px" Margin="-2,0,2,0" Grid.ColumnSpan="2"/>
+                <Grid Grid.Row="2" x:Name="gridError">
+                    <DataGrid x:Name="tablaError" HorizontalAlignment="Center"
+                                  Visibility="Collapsed"
+                                  AutoGenerateColumns="False"
+                                  Grid.Row="1"
+                                  Width="{Binding ElementName=gridError, Path=ActualWidth}"
+                                  CanUserAddRows="False"
+                                  SelectionMode="Single"
+                                  CanUserDeleteRows="False"
+                                  CanUserResizeRows="False"
+                                  CanUserSortColumns="False"
+                                  HeadersVisibility="Column"
+                                  GridLinesVisibility="None" SelectionUnit="FullRow">
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn Width="1*">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock  Text="Linea" />
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock x:Name="txtSimbolo" Text="{Binding Line}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate >
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Simbolo, UpdateSourceTrigger=LostFocus}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="3*">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock  Text="Error" />
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock x:Name="txtDefinicion" Text="{Binding Error}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate >
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Definicion, UpdateSourceTrigger=LostFocus}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </Grid>
             <!--Termina Grid que contendra al toolbar y el editor de codigo-->
 
