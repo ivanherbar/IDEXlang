@@ -16,6 +16,7 @@ namespace IDEXlan
 
         public List<ErrorTableModel> Analize()
         {
+            //Esto es un comentario
             List<ErrorTableModel> error = new List<ErrorTableModel>();
             string[] lineas = Code.Split('\r');
             int numPyC = 0;
