@@ -1,4 +1,5 @@
-﻿using IDEXlan.Expresiones;
+﻿using IDEXlan.Analizer;
+using IDEXlan.Model;
 using Microsoft.Win32;
 using System.Collections.Generic;
 using System.IO;
@@ -121,13 +122,13 @@ namespace IDEXlan
             }
 
             ExpresionesReg reg = new ExpresionesReg();
-            List<TablaSimbolos> simbolos = new List<TablaSimbolos>();
+            List<TablaSimbolosModel> simbolos = new List<TablaSimbolosModel>();
             simbolos.Clear();
             if (tokens.Length > 0 || tokens.Equals(null))
             {
                 foreach (var item in tokens)
                 {
-                    simbolos.Add(new TablaSimbolos
+                    simbolos.Add(new TablaSimbolosModel
                     {
                         Simbolo = item,
                         Definicion = reg.ConvertirToken(item),

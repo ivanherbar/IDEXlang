@@ -3,14 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:IDEXlan"
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:mainVM="clr-namespace:IDEXlan.ViewModel"
         mc:Ignorable="d"
         Title="X Lang IDE" Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
         Icon="Images/ide.png">
     
     <!--Iconos gratuitos obtenidos de FlatIcon-->
+    <Window.DataContext>
+        <mainVM:MainViewModel/>
+    </Window.DataContext>
     
     <Grid Name="mainGrid">
         <Grid.RowDefinitions>

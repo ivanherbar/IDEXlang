@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace IDEXlan.Expresiones
+namespace IDEXlan.Analizer
 {
    public  class ExpresionesReg
     {
