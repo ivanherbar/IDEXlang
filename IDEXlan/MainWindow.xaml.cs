@@ -40,7 +40,8 @@ namespace IDEXlan
                     
             };
 
-            
+
+            btnCerrarErrores.Click += (obj, e) => gridError.Visibility = Visibility.Collapsed;
 
             menuArchivoGuardar.Click += GuardarArchivo;
             toolGuardar.Click += GuardarArchivo;
@@ -52,6 +53,7 @@ namespace IDEXlan
             toolsSyntactic.Click += (sender, args) =>
             {
                 SyntacticAnalizer analizer = new SyntacticAnalizer(textEditor.Text);
+                gridError.Visibility = Visibility.Visible;
                 tablaError.Visibility = Visibility.Visible;
                 tablaError.ItemsSource = analizer.Analize();
 
