@@ -72,15 +72,15 @@ namespace IDEXlan.Analizer
                 if (numPyC > 1)
                     error.Add(new ErrorTableModel { Line = i + 1, Error = "No puede haber mas de un ';' en una linea" });
                 else
-                    if (!(lineas[i][lineas[i].Length - 1] == ';'))
+                    if (!(lineas[i][lineas[i].Length - 1] == ';') && !(lineas[i].Contains("{") || lineas[i].Contains("}")))
                     error.Add(new ErrorTableModel { Line = i + 1, Error = "Error: Se esperaba ';'" });
                 numPyC = 0;
             }
 
             if (carEsp.Count > 0)
-                error.Add(new ErrorTableModel { Line = 1, Error = "Caracteres especiales no balanceados" });
+                error.Add(new ErrorTableModel { Line = 0, Error = "Caracteres especiales no balanceados" });
             if (hayComillas)
-                error.Add(new ErrorTableModel { Line = 1, Error = "Caracteres ' \" ' sin cierre" });
+                error.Add(new ErrorTableModel { Line = 0, Error = "Caracteres ' \" ' sin cierre" });
 
 
             return error;

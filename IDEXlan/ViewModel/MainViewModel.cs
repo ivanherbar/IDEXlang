@@ -23,12 +23,12 @@ namespace IDEXlan.ViewModel
             }
         }
 
-        public ICommand tokensBtnCommand;
+        public ICommand TokensBtnCommand { get; set; }
 
         public MainViewModel()
         {
             Code = "Testing";
-            tokensBtnCommand = new CommandBase((p) => Code = "Click je");
+            TokensBtnCommand = new CommandBase((p) => Code = "Click je");
         }
 
     }
