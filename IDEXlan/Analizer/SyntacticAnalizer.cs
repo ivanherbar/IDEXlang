@@ -17,26 +17,72 @@ namespace IDEXlan.Analizer
 
         public List<ErrorTableModel> Analize()
         {
-            //Esto es un comentario
             List<ErrorTableModel> error = new List<ErrorTableModel>();
+            Stack<char> carEsp = new Stack<char>();
+            bool hayComillas = false;
+
             string[] lineas = Code.Split('\r');
             int numPyC = 0;
             for (int i = 0; i < lineas.Length; i++)
             {
-                foreach(char c in lineas[i])
+                foreach (char c in lineas[i])
                 {
-                    if(c == ';')
+                    if (c == ';')
                     {
                         numPyC++;
                     }
+                    if (c == '(' || c == '{' || c == '[' || c == '"')
+                    {
+                        if (c == '"')
+                        {
+                            if (!hayComillas)
+                            {
+                                carEsp.Push(c);
+                                hayComillas = true;
+                            }
+                            else
+                            {
+                                carEsp.Pop();
+                                hayComillas = false;
+                            }
+                        }
+                        else if (!hayComillas) carEsp.Push(c);
+                    }
+                    else if (c == ')' || c == '}' || c == ']')
+                    {
+                        if (!hayComillas && carEsp.Count > 0)
+                        {
+                            if (carEsp.Count == 0)
+                                error.Add(new ErrorTableModel { Line = i + 1, Error = $"Error: se esperaba apertura de {c} " });
+                            if (carEsp.Peek() == '(' && c == ')')
+                                carEsp.Pop();
+                            else if (carEsp.Peek() == '{' && c == '}')
+                                carEsp.Pop();
+                            else if (carEsp.Peek() == '[' && c == ']')
+                                carEsp.Pop();
+                            else
+                            {
+                                error.Add(new ErrorTableModel { Line = i + 1, Error = $"Error: caracter {c} no balanceado" });
+                                carEsp.Pop();
+                            }
+                        }
+                    }
                 }
+
                 if (numPyC > 1)
-                    error.Add(new ErrorTableModel { Line = i+1, Error = "No puede haber mas de un ';' en una linea"  });
+                    error.Add(new ErrorTableModel { Line = i + 1, Error = "No puede haber mas de un ';' en una linea" });
                 else
-                    if (!(lineas[i][lineas[i].Length-1] == ';'))
+                    if (!(lineas[i][lineas[i].Length - 1] == ';'))
                     error.Add(new ErrorTableModel { Line = i + 1, Error = "Error: Se esperaba ';'" });
                 numPyC = 0;
             }
+
+            if (carEsp.Count > 0)
+                error.Add(new ErrorTableModel { Line = 1, Error = "Caracteres especiales no balanceados" });
+            if (hayComillas)
+                error.Add(new ErrorTableModel { Line = 1, Error = "Caracteres ' \" ' sin cierre" });
+
+
             return error;
         }
     }
