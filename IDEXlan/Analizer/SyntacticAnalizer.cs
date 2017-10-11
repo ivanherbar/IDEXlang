@@ -50,11 +50,11 @@ namespace IDEXlan.Analizer
                     }
                     else if (c == ')' || c == '}' || c == ']')
                     {
-                        if (!hayComillas && carEsp.Count > 0)
+                        if (!hayComillas )
                         {
                             if (carEsp.Count == 0)
                                 error.Add(new ErrorTableModel { Line = i + 1, Error = $"Error: se esperaba apertura de {c} " });
-                            if (carEsp.Peek() == '(' && c == ')')
+                            else if (carEsp.Peek() == '(' && c == ')')
                                 carEsp.Pop();
                             else if (carEsp.Peek() == '{' && c == '}')
                                 carEsp.Pop();
@@ -68,8 +68,9 @@ namespace IDEXlan.Analizer
                         }
                     }
                 }
-
-                if (numPyC > 1)
+                if (lineas[i] == "\n")
+                    continue;
+                else if (numPyC > 1)
                     error.Add(new ErrorTableModel { Line = i + 1, Error = "No puede haber mas de un ';' en una linea" });
                 else
                     if (!(lineas[i][lineas[i].Length - 1] == ';') && !(lineas[i].Contains("{") || lineas[i].Contains("}")))
