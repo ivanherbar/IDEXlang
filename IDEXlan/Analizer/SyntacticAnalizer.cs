@@ -27,7 +27,7 @@ namespace IDEXlan.Analizer
             {
                 foreach (char c in lineas[i])
                 {
-                    if (c == ';')
+                    if (c == ';')//prueba
                     {
                         numPyC++;
                     }
